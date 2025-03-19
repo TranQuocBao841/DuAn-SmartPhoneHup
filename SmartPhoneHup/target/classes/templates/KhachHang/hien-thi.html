@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 50%;
+            min-width: 400px;
+        }
+        form {
+            background: #bbdefb;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], button {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            font-size: 16px;
+            display: block;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0d47a1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #e3f2fd;
+        }
+        th, td {
+            border: 1px solid #64b5f6;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+        th {
+            background-color: #1976d2;
+            color: white;
+        }
+        td a {
+            text-decoration: none;
+            color: #0d47a1;
+            margin: 0 5px;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Danh sách nhân viên</h2>
+    <form action="/khach-hang/add" method="post">
+        <label for="ten">Tên nhân viên:</label>
+        <input type="text" id="ten" name="ten" required><br>
+
+        <label for="sdt">Số điện thoại:</label>
+        <input type="text" id="sdt" name="sdt" required>
+
+        <label for="maKH">Mã khách hàng:</label>
+        <input type="text" id="maKH" name="maKH" required><br>
+
+        <label>Trạng thái:</label>
+        <div class="radio-group">
+            <input type="radio" id="DaThanhToan" name="trangThai" value="true"> <label for="DaThanhToan">Đã thanh toán</label>
+            <input type="radio" id="ChuaThanhToan" name="trangThai" value="false"> <label for="ChuaThanhToan">Chưa thanh toán</label>
+        </div>
+
+        <button type="submit">Thêm sản phẩm</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Tên</th>
+        <th>Số điện thoại</th>
+        <th>Mã khách hàng</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="khachHang:${listKhachHang}">
+        <tr>
+            <td th:text="${khachHang.id}"></td>
+            <td th:text="${khachHang.ten}"></td>
+            <td th:text="${khachHang.sdt}"></td>
+            <td th:text="${khachHang.maKH}"></td>
+            <td th:text="${khachHang.trangThai ? 'Đã thanh toán' : 'Chưa thanh toán'}"></td>
+            <td>
+                <a th:href="@{|/khach-hang/detail/${khachHang.id}|}">Chi tiết</a>
+                <a th:href="@{|/khach-hang/view-update/${khachHang.id}|}">Cập nhật</a>
+                <a th:href="@{|/khach-hang/delete?id=${khachHang.id}|}" style="color: red;">Xóa</a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

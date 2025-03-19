@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Sản phẩm Chi tiết</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #e3f2fd;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        .container {
+        width: 50%;
+        min-width: 400px;
+        }
+        form {
+        background: #bbdefb;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+        }
+        label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        }
+        input[type="text"], button {
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #90caf9;
+        border-radius: 4px;
+        font-size: 16px;
+        display: block;
+        }
+        .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        }
+        input[type="radio"] {
+        margin-right: 5px;
+        }
+        button {
+        background-color: #1565c0;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        }
+        button:hover {
+        background-color: #0d47a1;
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #e3f2fd;
+        }
+        th, td {
+        border: 1px solid #64b5f6;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+        }
+        th {
+        background-color: #1976d2;
+        color: white;
+        }
+        td a {
+        text-decoration: none;
+        color: #0d47a1;
+        margin: 0 5px;
+        }
+        td a:hover {
+        text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h2>Thêm SPCT</h2>
+<form action="/chi-tiet-san-pham/add" method="post">
+    Mã SPCT:<input type="text" name="maSPCT">
+    <br>
+    Màu sắc:<br>
+    <select name="mauSac" >
+        <option value="">Vui lòng chọn màu sắc</option>
+        <option th:each="mauSac:${listMauSac}"
+                th:value="${mauSac.id}"
+                th:text="${mauSac.ten}"         >
+
+        </option>
+    </select>
+    <br>
+    Kích thước:<br>
+    <select name="kichThuoc" >
+        <option value="">Vui lòng chọn kích thước</option>
+        <option th:each="kichThuoc:${listKichThuoc}"
+                th:value="${kichThuoc.id}"
+                th:text="${kichThuoc.ten}">
+
+        </option>
+    </select>
+    <br>
+    Sản phẩm:<br>
+    <select name="sanPham" >
+        <option value="">Vui lòng chọn sản phẩm</option>
+        <option th:each="sanPham:${listSanPham}"
+                th:value="${sanPham.id}"
+                th:text="${sanPham.ten}">
+        </option>
+    </select>
+    <br>
+    Số lượng:<input type="text" name="soLuong"><br>
+    Đơn giá:<input type="text" name="donGia"><br>
+    Trạng thái:<br>
+    Còn hàng <input type="radio" name="trangThai" value="true">
+    Hết hàng <input type="radio" name="trangThai" value="false">
+<button>Submit</button>
+</form>
+<h2>Danh sách Sản phẩm Chi tiết</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Mã SPCT</th>
+        <th>Màu sắc</th>
+        <th>Kích thước</th>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="spct : ${listSPCT}">
+        <td th:text="${spct.id}"></td>
+        <td th:text="${spct.maSPCT}"></td>
+        <td th:text="${spct.mauSac.ten}"></td>
+        <td th:text="${spct.kichThuoc.ten}"></td>
+        <td th:text="${spct.sanPham.ten}"></td>
+        <td th:text="${spct.soLuong}"></td>
+        <td th:text="${spct.donGia}"></td>
+        <td th:text="${spct.trangThai ? 'Còn hàng' : 'Hết hàng'}"></td>
+        <th>
+            <a th:href="@{|/chi-tiet-san-pham/delete?id=${spct.id}|}">Delete</a>
+            <a th:href="@{|/chi-tiet-san-pham/view-update/${spct.id}|}">Update</a>
+            <a th:href="@{|/chi-tiet-san-pham/detail/${spct.id}|}">Detail</a>
+
+        </th>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

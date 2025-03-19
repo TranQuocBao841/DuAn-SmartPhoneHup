@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background: #bbdefb;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 25%;
+            min-width: 500px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        form {
+            background: #bbdefb;
+            padding: 20px;
+            border-radius: 8px;
+            /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+            width: 60%;
+            min-width: 450px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 22px);
+            border: 1px solid #64b5f6;
+            border-radius: 5px;
+            display: block;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e3f2fd;
+            border-radius: 5px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Update Sản phẩm</h2>
+    <form action="/khach-hang/update" method="post">
+        <label>Id:</label>
+        <input type="text" name="id" th:value="${khachHang.id}" readonly>
+
+        <label>Tên:</label>
+        <input type="text" name="ten" th:value="${khachHang.ten}">
+
+        <label>Số dien thoại:</label>
+        <input type="text" name="sdt" th:value="${khachHang.sdt}">
+
+        <label>Mã:</label>
+        <input type="text" name="maKH" th:value="${khachHang.maKH}">
+        <label>Trạng thái:</label>
+        <div class="radio-group">
+            <label><input type="radio" name="trangThai" value="true" th:checked="${khachHang.trangThai==true}"> Đã thanh toán</label>
+            <label><input type="radio" name="trangThai" value="false" th:checked="${khachHang.trangThai==false}">Chưa thanh toán</label>
+        </div>
+        <button type="submit">Cập nhật</button>
+    </form>
+</div>
+</body>
+</html>

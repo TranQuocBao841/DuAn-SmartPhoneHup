@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <title>Hóa đơn chi tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 50%;
+            min-width: 400px;
+        }
+        form {
+            background: #bbdefb;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], button {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            font-size: 16px;
+            display: block;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0d47a1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #e3f2fd;
+        }
+        th, td {
+            border: 1px solid #64b5f6;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+        th {
+            background-color: #1976d2;
+            color: white;
+        }
+        td a {
+            text-decoration: none;
+            color: #0d47a1;
+            margin: 0 5px;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!--<h2>Thêm HDCT</h2>-->
+<!--<form action="/hoa-don-chi-tiet/add" method="post">-->
+<!--    Sản phẩm:<br>-->
+<!--    <select name="spct" >-->
+<!--        <option value="">Vui lòng chọn màu sắc</option>-->
+<!--        <option th:each="spct:${listSPCT}"-->
+<!--                th:value="${spct.id}"-->
+<!--                th:text="${spct.maSPCT}"         >-->
+
+<!--        </option>-->
+<!--    </select>-->
+<!--    <br>-->
+<!--    Hóa đơn:<br>-->
+<!--    <select name="hoaDon" >-->
+<!--        <option value="">Vui lòng chọn kích thước</option>-->
+<!--        <option th:each="hoaDon:${listHoaDon}"-->
+<!--                th:value="${hoaDon.id}"-->
+<!--                th:text="${hoaDon.id}">-->
+
+<!--        </option>-->
+<!--    </select>-->
+<!--    <br>-->
+
+<!--    Số lượng:<input type="text" name="soLuong"><br>-->
+<!--    Đơn giá:<input type="text" name="donGia"><br>-->
+<!--    Trạng thái:<br>-->
+<!--    Còn hàng <input type="radio" name="trangThai" value="true">-->
+<!--    Hết hàng <input type="radio" name="trangThai" value="false">-->
+<!--    <button>Submit</button>-->
+<!--</form>-->
+<h2>Hóa đơn chi tiết</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Tên sản phẩm</th>
+        <th>Id hóa đơn</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="hoaDonChiTiet:${listHoaDonChiTiet}">
+        <tr>
+            <td th:text="${hoaDonChiTiet.id}"></td>
+            <td th:text="${hoaDonChiTiet.spChiTiet.maSPCT}"></td>
+            <td th:text="${hoaDonChiTiet.hoaDon.id}"></td>
+            <td th:text="${hoaDonChiTiet.soLuong}"></td>
+            <td th:text="${hoaDonChiTiet.donGia}"></td>
+            <td th:text="${hoaDonChiTiet.trangThai ?'Đã thanh toán':'Chưa thanh toán'}"></td>
+            <td>
+                <a th:href="@{|/hoa-don-chi-tiet/detail/${hoaDonChiTiet.id}|}">Detail</a>
+                <a th:href="@{|/hoa-don-chi-tiet/delete?id=${hoaDonChiTiet.id}|}">Delete</a>
+                <a th:href="@{|/hoa-don-chi-tiet/view-update/${hoaDonChiTiet.id}|}">Update</a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
